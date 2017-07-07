@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.js"
+            integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+            crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="random.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <script type="text/javascript" src="paper-full.js"></script>
+    <script type="text/paperscript" canvas="myCanvas">
+
+var count = 150;
+
+// Create a symbol, which we will use to place instances of later:
+var path = new Path.Circle({
+center: [0, 0],
+radius: 10,
+fillColor: 'black',
+strokeColor: 'black'
+});
+
+var symbol = new Symbol(path);
+
+// Place the instances of the symbol:
+for (var i = 0; i < count; i++) {
+// The center position is a random point in the view:
+var center = Point.random() * view.size;
+var placedSymbol = symbol.place(center);
+placedSymbol.scale(i / count);
+}
+
+// The onFrame function is called up to 60 times a second:
+function onFrame(event) {
+// Run through the active layer's children list and change
+// the position of the placed symbols:
+
+
+    for (var i = 0; i < count; i++) {
+        var item = project.activeLayer.children[i];
+
+// Move the item 1/20th of its width to the right. This way
+// larger circles move faster than smaller circles:
+        item.position.x += item.bounds.width / 20;
+
+// If the item has left the view on the right, move it back
+// to the left:
+        if (item.bounds.left > view.size.width) {
+            item.position.x = -item.bounds.width;
+        }
+    }
+}
+</script>
+
+</head>
+<canvas id="myCanvas" width="1440" height="503" style="width: 100%; height: 100%; position: fixed;"></canvas>
+<body background="backgroundimg.jpg">
+
+<div class="container">
+    <h1>Random Quotes</h1>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-xs-12">
+<p id="quotez">
+
+
+Your quotes are just 1 click away!
+    Click the next button to start reading the quotes!
+    Follow me on twitter and github!
+
+</p>
+            <br>
+<button id="button" class="col-md-offset-5 col-xs-offset-4 btn btn-primary aa">Next</button>
+<br>
+            <div class="row">
+            <div class="col-md-6 col-md-offset-3 col-xs-12">
+            <h3>COMPILED BY PRANAV KAPOOR</h3>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 col-xs-9 col-xs-offset-2 ">
+
+            <a href="https://www.facebook.com/peropranav"><img class="image-fb " src="facebook.png"></a>
+            <a href="https://github.com/peropranav"><img class ="image-gh" src="githubi.png"></a>
+            <a href="https://www.linkedin.com/in/pranav-k-1a3bbb81/"><img class="image-in" src="linkedin.png"></a>
+            <a href="https://twitter.com/peropranav"><img class="image-tw" src="twitter.png"></a>
+
+                    </div>
+                </div>
+</div>
+        </div>
+    </div>
+        
+    </div>
+</div>
+
+<br>
+
+
+<script src="random.js"></script>
+</body>
+</html>
